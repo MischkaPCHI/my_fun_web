@@ -1,0 +1,67 @@
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  margin-top: 20px;
+}
+
+.main-table {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 5px;
+  background-color: black;
+}
+
+.main-table-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+  background-color: rgb(122, 122, 122);
+  cursor: pointer;
+}
+
+.main-table-box.X,
+.main-table-box.O {
+  cursor: default;
+}
+
+.turn-blocks {
+  display: flex;
+  margin: 10px 0;
+}
+
+.turn-block {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  font-size: 20px;
+  cursor: default;
+  border-radius: 8px;
+  border: 1px solid rgb(9, 226, 255);
+}
+
+.turn-block.active {
+  background-color: rgb(9, 226, 255);
+}
+
+.result {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.play-again {
+  margin-top: 10px;
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  border-color: transparent;
+  background: bisque;
+}
+
