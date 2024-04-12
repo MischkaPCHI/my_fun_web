@@ -27,21 +27,67 @@ const TicTacToe = () => {
       }
     };
 
+    const findBlockingMove = (currentBoxes) => {
+      for (let i = 0; i < winCombo.length; i++) {
+        const [a, b, c] = winCombo[i];
+        if (
+          currentBoxes[a] === 'X' &&
+          currentBoxes[b] === 'X' &&
+          currentBoxes[c] === ''
+        ) {
+          return c;
+        }
+        if (
+          currentBoxes[a] === 'X' &&
+          currentBoxes[b] === '' &&
+          currentBoxes[c] === 'X'
+        ) {
+          return b;
+        }
+        if (
+          currentBoxes[a] === '' &&
+          currentBoxes[b] === 'X' &&
+          currentBoxes[c] === 'X'
+        ) {
+          return a;
+        }
+      }
+      return null;
+    };
+
     useEffect(() => {
       if (!isGameState && turn === 'O') {
-          const intervalId = setInterval(() => {
-              const ran = Math.floor(Math.random() * 9);
-              if (box[ran] === '') {
-                  const newBoxes = [...box];
-                  newBoxes[ran] = turn;
-                  setBox(newBoxes);
-                  checkWin(newBoxes);
-                  setTurn('X');
-                  clearInterval(intervalId);
-              }
-          }, 500);
+        let move;
+        
+        move = findBlockingMove(box); // есть ли возможность заблочть противника
+        
+        if (move === null) {
+          const emptyCells = box.reduce((acc, cell, index) => { // если нет возможности заблочить значит делаем случайный ход
+            if (cell === '') {
+              acc.push(index);
+            }
+            return acc;
+          }, []);
+    
+          if (emptyCells.length === 0) {
+            setIsGameState(true);
+            return;
+          }
+    
+          move = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+        }
+        const intervalId = setInterval(() => {
+          if (box[move] === '') {
+            const newBoxes = [...box];
+            newBoxes[move] = turn;
+            setBox(newBoxes);
+            checkWin(newBoxes);
+            setTurn('X');
+            clearInterval(intervalId);
+          }
+        }, 500);
       }
-  }, [box, turn, isGameState]); // отслеживает изменения 
+    }, [box, turn, isGameState]); // отслеживает изменения 
   
     const checkWin = (currentBoxes) => {
       winCombo.forEach((combo) => {
