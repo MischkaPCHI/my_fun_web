@@ -31,23 +31,32 @@ const TicTacToe = () => {
       for (let i = 0; i < winCombo.length; i++) {
         const [a, b, c] = winCombo[i];
         if (
-          currentBoxes[a] === 'X' &&
+          (currentBoxes[a] === 'X' &&
           currentBoxes[b] === 'X' &&
-          currentBoxes[c] === ''
+          currentBoxes[c] === '') && 
+          (currentBoxes[a] === 'O' &&
+          currentBoxes[b] === 'O' &&
+          currentBoxes[c] === '')
         ) {
           return c;
         }
         if (
-          currentBoxes[a] === 'X' &&
+          (currentBoxes[a] === 'X' &&
           currentBoxes[b] === '' &&
-          currentBoxes[c] === 'X'
+          currentBoxes[c] === 'X') &&
+          (currentBoxes[a] === 'O' &&
+          currentBoxes[b] === '' &&
+          currentBoxes[c] === 'O')
         ) {
           return b;
         }
         if (
-          currentBoxes[a] === '' &&
+          (currentBoxes[a] === '' &&
           currentBoxes[b] === 'X' &&
-          currentBoxes[c] === 'X'
+          currentBoxes[c] === 'X') &&
+          (currentBoxes[a] === '' &&
+          currentBoxes[b] === 'O' &&
+          currentBoxes[c] === 'O')
         ) {
           return a;
         }
@@ -60,7 +69,7 @@ const TicTacToe = () => {
         let move;
         
         move = findBlockingMove(box); // есть ли возможность заблочть противника
-        
+
         if (move === null) {
           const emptyCells = box.reduce((acc, cell, index) => { // если нет возможности заблочить значит делаем случайный ход
             if (cell === '') {
@@ -87,7 +96,7 @@ const TicTacToe = () => {
           }
         }, 500);
       }
-    }, [box, turn, isGameState]); // отслеживает изменения 
+    },[box, turn, isGameState]); // отслеживает изменения 
   
     const checkWin = (currentBoxes) => {
       winCombo.forEach((combo) => {
@@ -118,7 +127,7 @@ const TicTacToe = () => {
         {isGameState && (
           <div className="result">
             {/* для меня тугодума если вдруг захочу опять передвинуть круглую скобку в конец. НЕ СМЕЙ!!! */}
-            {box.map((value) => value === 'X' || value === 'O') ? `Game over: ${turn}` : ``}
+            {box.every(value => value === 'X' || value === 'O') ? 'draw' : `Game over: ${turn}`}
           </div>
         )}
         <button className="play-again" onClick={handlePlayAgain}>Play Again</button>
