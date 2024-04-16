@@ -64,3 +64,34 @@ body {
   left: 30px;
 }
 
+.menu-btn {
+	width: 30px;
+	height: 30px;
+	position: relative;
+	z-index:2;
+	overflow: hidden;
+  right: 10px;
+  fill: white;
+}
+
+.menu-btn:hover {
+  fill: #0f0;
+}
+
+.menu {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100px;
+	height: 100%;
+	padding: 15px;
+  background: bisque;
+	transform: translateX(-100%);
+	transition: transform 0.5s; 
+}
+.menu.active {
+	transform: translateX(0);
+}
+.menu li {
+	list-style-type: none;
+}

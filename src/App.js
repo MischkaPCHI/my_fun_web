@@ -1,4 +1,5 @@
 import logo from "./logo.svg";
+import {ReactComponent as Menu} from "./071menu_99999.svg"
 import "./styles/style.css";
 import "./styles/styleCurrency.css";
 import "./styles/styleTimer.css";
@@ -11,6 +12,7 @@ import TicTacToe from "./components/ticTacToe";
 
 function App() {
   const [mode, setMode] = useState("todo");
+  const [isActive, setActive] = useState(false);
 
   return (
     <>
@@ -24,7 +26,21 @@ function App() {
             {link.title}
           </button>
         ))}
+        <div className="menu-btn" onClick={() => {setActive(!isActive)}}>
+          <Menu className="burger-menu"></Menu>
+        </div>
       </header>
+
+      <div className={`menu ${isActive ? 'active' : ''}`}>
+        <nav>
+          <ul>
+          <li>Главная</li>
+          <li>О нас</li>
+          <li>Услуги</li>
+          <li>Контакты</li>
+          </ul>
+        </nav>
+      </div>
 
       {mode === "Currency" && <Currency></Currency>}
 
